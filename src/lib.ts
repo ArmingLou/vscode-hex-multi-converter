@@ -13,43 +13,30 @@ export function getLineEndIndex(line: vscode.TextLine) {
 }
 
 export function findFirstWordRangeIn(
-  selection: vscode.Selection,
+  regx: string,
   line: vscode.TextLine,
   fromCharIndex: number,
 ): vscode.Range | undefined {
-  const lineEndIndex = getLineEndIndex(line);
 
-  const lineLen = lineEndIndex - line.range.start.character;
-
-  const charRegExp = new RegExp(regexes.character);
-
-  const acc: string[] = [];
-  for (let i = fromCharIndex; i < lineLen; i++) {
-    // Check if not a "word character"
-    if (!charRegExp.test(line.text[i])) {
-      // Not a word character. Return result if there were any characters collected.
-      if (acc.length > 0) {
-        return new vscode.Range(
-          line.lineNumber,
-          i - acc.length,
-          line.lineNumber,
-          i,
-        );
-      }
-    } else {
-      // Save word character for next iteration
-      acc.push(line.text[i]);
+  let regex: RegExp = new RegExp(regx, "gi");
+  let lineText = line.text.substring(fromCharIndex);
+  let result = regex.exec(lineText);
+  while (result) {
+    let st0 = result[0];
+    if (st0 === undefined) {
+      break;
     }
-  }
 
-  // Handles end of line
-  if (acc.length > 0) {
+    if (st0 === '') {
+      break;
+    }
     return new vscode.Range(
       line.lineNumber,
-      lineEndIndex - acc.length,
+      regex.lastIndex - st0.length + fromCharIndex,
       line.lineNumber,
-      lineEndIndex,
+      regex.lastIndex + fromCharIndex,
     );
+
   }
 }
 
@@ -72,12 +59,13 @@ export function forEachWordIn(
   selection: vscode.Selection,
   line: vscode.TextLine,
   callback: (word: string, index: number) => void,
+  regex: string,
 ) {
   const lineLen = line.range.end.character - line.range.start.character;
 
   function iterate(charIndex: number) {
     if (editor) {
-      const wordRange = findFirstWordRangeIn(selection, line, charIndex);
+      const wordRange = findFirstWordRangeIn(regex, line, charIndex);
 
       if (wordRange) {
         const word = editor.document.getText(wordRange);

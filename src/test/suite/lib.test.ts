@@ -2,6 +2,7 @@ import * as assert from "assert";
 import * as vscode from "vscode";
 
 import { findFirstWordRangeIn, forEachLineIn, forEachWordIn } from "../../lib";
+import { regxNum } from "../../constants";
 
 async function createEditor(content: string) {
   const editor = await vscode.window.showTextDocument(
@@ -19,7 +20,7 @@ suite("findFirstWordRangeIn", () => {
 
     assert.deepStrictEqual(
       findFirstWordRangeIn(
-        new vscode.Selection(0, 0, 0, 11),
+        regxNum.decimal,
         editor.document.lineAt(0),
         0,
       ),
@@ -77,6 +78,7 @@ suite("forEachWord", () => {
       (word, i) => {
         result.push([word, i]);
       },
+      regxNum.hex,
     );
 
     forEachWordIn(
@@ -86,6 +88,7 @@ suite("forEachWord", () => {
       (word, i) => {
         result.push([word, i]);
       },
+      regxNum.decimal,
     );
 
     assert.deepStrictEqual(result, [
@@ -114,6 +117,7 @@ suite("forEachWord", () => {
       (word, i) => {
         result.push([word, i]);
       },
+      regxNum.decimal,
     );
 
     forEachWordIn(
@@ -123,6 +127,7 @@ suite("forEachWord", () => {
       (word, i) => {
         result.push([word, i]);
       },
+      regxNum.decimal,
     );
 
     forEachWordIn(
@@ -132,6 +137,7 @@ suite("forEachWord", () => {
       (word, i) => {
         result.push([word, i]);
       },
+      regxNum.decimal,
     );
 
     assert.deepStrictEqual(result, [

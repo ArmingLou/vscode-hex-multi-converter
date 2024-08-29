@@ -8,6 +8,11 @@ export const regexes = {
   newline: "\\n",
   character: "[a-zA-Z0-9]",
 };
+export const regxNum = {
+  hex: '(?:0x|#)?((?:(?!0x)(?!0X)[0-9a-f])+)',
+  decimal: '([0-9]+)',
+  binary: '([0-1]+)',
+};
 
 export const commentSymbols = {
   slashes: "//",

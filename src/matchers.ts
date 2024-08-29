@@ -1,6 +1,6 @@
 import { regexes } from "./constants";
 
-const hexRegExp = new RegExp(regexes.hex);
+const hexRegExp = new RegExp(regexes.hex, "i");
 
 export function isHexString(value: string): boolean {
   return hexRegExp.test(value);

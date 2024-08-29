@@ -7,6 +7,7 @@ import {
   hexStringToDecimalString,
 } from "../../converters";
 import { isDecimalString, isHexString } from "../../matchers";
+import { regxNum } from "../../constants";
 
 async function createEditor(content: string) {
   const editor = await vscode.window.showTextDocument(
@@ -24,7 +25,7 @@ suite("extension", () => {
 
     editor.selections = [new vscode.Selection(0, 0, 0, 10)];
 
-    await replace(editor, hexStringToDecimalString, isHexString);
+    await replace(editor, hexStringToDecimalString, isHexString, regxNum.hex);
 
     assert.strictEqual(editor.document.getText(), "Hello 255");
   });
@@ -34,7 +35,7 @@ suite("extension", () => {
 
     editor.selections = [new vscode.Selection(0, 5, 0, 9)];
 
-    await replace(editor, hexStringToDecimalString, isHexString);
+    await replace(editor, hexStringToDecimalString, isHexString, regxNum.hex);
 
     assert.strictEqual(editor.document.getText(), "0x00 255");
   });
@@ -44,7 +45,7 @@ suite("extension", () => {
 
     editor.selections = [new vscode.Selection(0, 0, 0, 10)];
 
-    await comment(editor, hexStringToDecimalString, isHexString);
+    await comment(editor, hexStringToDecimalString, isHexString, regxNum.hex);
 
     assert.strictEqual(editor.document.getText(), "Hello 0xff // 255");
   });
@@ -54,7 +55,7 @@ suite("extension", () => {
 
     editor.selections = [new vscode.Selection(0, 5, 0, 9)];
 
-    await comment(editor, hexStringToDecimalString, isHexString);
+    await comment(editor, hexStringToDecimalString, isHexString, regxNum.hex);
 
     assert.strictEqual(editor.document.getText(), "0x00 0xff // 255");
   });
@@ -64,7 +65,7 @@ suite("extension", () => {
 
     editor.selections = [new vscode.Selection(0, 5, 0, 19)];
 
-    await comment(editor, hexStringToDecimalString, isHexString);
+    await comment(editor, hexStringToDecimalString, isHexString, regxNum.hex);
 
     assert.strictEqual(
       editor.document.getText(),
@@ -77,7 +78,7 @@ suite("extension", () => {
 
     editor.selections = [new vscode.Selection(0, 0, 0, 10)];
 
-    await replace(editor, decimalStringToHexString, isDecimalString);
+    await replace(editor, decimalStringToHexString, isDecimalString, regxNum.hex);
 
     assert.strictEqual(editor.document.getText(), "Hello 0xff");
   });

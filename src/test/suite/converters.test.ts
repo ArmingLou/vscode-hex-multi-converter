@@ -1,10 +1,10 @@
 import * as assert from "assert";
 
 import {
-  asciiStringToHexString,
+  charToHexUnicode,
   binaryStringToHexString,
   decimalStringToHexString,
-  hexStringToASCIIString,
+  hexUnicodeToChar,
   hexStringToBinaryString,
   hexStringToDecimalString,
 } from "../../converters";
@@ -19,11 +19,11 @@ suite("converters", () => {
     assert.strictEqual(hexStringToDecimalString("n"), null);
   });
 
-  test("hexStringToASCIIString", () => {
-    assert.strictEqual(hexStringToASCIIString("0x41"), "A");
-    assert.strictEqual(hexStringToASCIIString("0x48"), "H");
-    assert.strictEqual(hexStringToASCIIString("0x78"), "x");
-    assert.strictEqual(hexStringToASCIIString("l"), null);
+  test("hexUnicodeToChar", () => {
+    assert.strictEqual(hexUnicodeToChar("0x41"), "A");
+    assert.strictEqual(hexUnicodeToChar("0x48"), "H");
+    assert.strictEqual(hexUnicodeToChar("0x78"), "x");
+    assert.strictEqual(hexUnicodeToChar("l"), null);
   });
 
   test("hexStringToBinaryString", () => {
@@ -49,14 +49,14 @@ suite("converters", () => {
     assert.deepStrictEqual(binaryStringToHexString("10000000"), "0x80");
   });
 
-  test("asciiStringToHexString", () => {
+  test("charToHexUnicode", () => {
     assert.deepStrictEqual(
-      asciiStringToHexString("ascii"),
+      charToHexUnicode("ascii"),
       "0x61 0x73 0x63 0x69 0x69",
     );
-    assert.deepStrictEqual(asciiStringToHexString("\n"), "0x0a");
-    assert.deepStrictEqual(asciiStringToHexString(" "), "0x20");
-    assert.deepStrictEqual(asciiStringToHexString("~"), "0x7e");
-    assert.deepStrictEqual(asciiStringToHexString("aå"), null);
+    assert.deepStrictEqual(charToHexUnicode("\n"), "0x0a");
+    assert.deepStrictEqual(charToHexUnicode(" "), "0x20");
+    assert.deepStrictEqual(charToHexUnicode("~"), "0x7e");
+    assert.deepStrictEqual(charToHexUnicode("aå"), null);
   });
 });

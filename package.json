@@ -1,10 +1,10 @@
 {
   "name": "vscode-hex-multi-converter",
   "displayName": "Hex Multi-Converter",
-  "publisher": "jesper",
+  "publisher": "Arming",
   "icon": "icon.png",
   "description": "Convert hex to ASCII, decimal and binary with multi-select support",
-  "version": "0.3.0",
+  "version": "2.0.1",
   "engines": {
     "vscode": "^1.80.0"
   },
@@ -31,12 +31,12 @@
         "properties": {
           "hex-multi-converter.convertEscapeCharactersToText": {
             "type": "boolean",
-            "default": true,
+            "default": false,
             "description": "Converts escape characters to readable text. For example, instead of rendering a new line you will see \\n."
           },
           "hex-multi-converter.convertControlCharactersToText": {
             "type": "boolean",
-            "default": true,
+            "default": false,
             "description": "Converts control characters to readable text. For example, instead of rendering a symbol for 0x1b you will see ESC."
           }
         }
@@ -52,12 +52,12 @@
         "title": "Comment Hex As Decimal"
       },
       {
-        "command": "hex-multi-converter.hexToASCII",
-        "title": "Convert Hex To ASCII"
+        "command": "hex-multi-converter.hexToChar",
+        "title": "Convert Hex unicode To Char"
       },
       {
-        "command": "hex-multi-converter.commentHexAsASCII",
-        "title": "Comment Hex As ASCII"
+        "command": "hex-multi-converter.commentHexAsChar",
+        "title": "Comment Hex unicode As Char"
       },
       {
         "command": "hex-multi-converter.hexToBinary",
@@ -76,8 +76,32 @@
         "title": "Convert Binary To Hex"
       },
       {
-        "command": "hex-multi-converter.asciiToHex",
-        "title": "Convert ASCII To Hex"
+        "command": "hex-multi-converter.stringToHexUnicode",
+        "title": "Convert String To Hex unicode array"
+      },
+      {
+        "command": "hex-multi-converter.stringToHexUtf8Bytes",
+        "title": "Convert String To Hex byte array (utf8)"
+      },
+      {
+        "command": "hex-multi-converter.stringToDecimalUtf8Bytes",
+        "title": "Convert String To Decimal byte array (utf8)"
+      },
+      {
+        "command": "hex-multi-converter.hexArrayToString",
+        "title": "Convert Hex unicode array To String"
+      },
+      {
+        "command": "hex-multi-converter.decimalArrayToString",
+        "title": "Convert Decimal unicode array To String"
+      },
+      {
+        "command": "hex-multi-converter.hexUtf8BytesToString",
+        "title": "Convert Hex byte array (utf8) To String"
+      },
+      {
+        "command": "hex-multi-converter.decimalUtf8BytesToString",
+        "title": "Convert Decimal byte array (utf8) To String"
       }
     ]
   },
